@@ -11,7 +11,7 @@ export default {
 export const commentRoom = () => {
     return (
         <CommentRoom
-            postId={"postId"}
+            postId='postId'
             comments={[comment]}
             onCommentReply={action('commentRoom-onCommentReply')}
             onPostReply={action('commentRoom-onPostReply')}
@@ -43,6 +43,7 @@ const comment = {
     comment: 'Is very nice, Buh the pictures are not de same',
     timeCreated: 'Today at 5:00PM',
     author: 'Apollo Way',
+    shouldDisplayReply: true,
 }
 const replies = [
     {
@@ -50,6 +51,7 @@ const replies = [
         comment: 'This boy no be professional one bit!!!',
         timeCreated: 'Yesterday at 12:30AM',
         author: 'Apollo Way',
+        shouldDisplayReply: true,
         replies: [
             {
                 id: 7,
@@ -64,6 +66,7 @@ const replies = [
         comment: 'Thanks everyone',
         timeCreated: 'Yesterday at 12:30AM',
         author: 'Apollo Way',
+        shouldDisplayReply: true,
     },
 ]
 comment.replies = replies

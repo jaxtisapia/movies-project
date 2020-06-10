@@ -4,7 +4,16 @@ import { Comment as SemanticComment } from 'semantic-ui-react'
 import CommentReply from './CommentReply'
 import genericAvatar from '../../assets/images/genericAvatar.jpg'
 
-const Comment = ({ id: commentId, avatarSrc, author, timeCreated, comment, replies = [], onReplySubmitted }) => {
+const Comment = ({
+    id: commentId,
+    avatarSrc,
+    author,
+    timeCreated,
+    comment,
+    replies = [],
+    onReplySubmitted,
+    shouldDisplayReply,
+}) => {
     const [isReplying, setReplying] = React.useState(false)
 
     function handleToggleReplyingStatus() {
@@ -24,13 +33,15 @@ const Comment = ({ id: commentId, avatarSrc, author, timeCreated, comment, repli
 
                     <SemanticComment.Text>{comment}</SemanticComment.Text>
 
-                    <SemanticComment.Actions>
-                        <SemanticComment.Action onClick={handleToggleReplyingStatus}>
-                            {isReplying ? 'Dismiss' : 'Reply'}
-                        </SemanticComment.Action>
+                    {shouldDisplayReply && (
+                        <SemanticComment.Actions>
+                            <SemanticComment.Action onClick={handleToggleReplyingStatus}>
+                                {isReplying ? 'Dismiss' : 'Reply'}
+                            </SemanticComment.Action>
 
-                        {isReplying && <CommentReply onReplySubmitted={onReplySubmitted} commentId={commentId} />}
-                    </SemanticComment.Actions>
+                            {isReplying && <CommentReply onReplySubmitted={onReplySubmitted} commentId={commentId} />}
+                        </SemanticComment.Actions>
+                    )}
                 </SemanticComment.Content>
 
                 <SemanticComment.Group threaded>
