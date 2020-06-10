@@ -15,7 +15,7 @@ const CommentReply = ({ onReplySubmitted, commentId, postId }) => {
     return (
         <Form reply onSubmit={handleFormSubmit}>
             <Form.TextArea value={reply} onChange={handleChange} />
-            <Form.Button content="Add Reply" labelPosition="left" icon="edit" primary />
+            <Form.Button content="Reply" labelPosition="left" icon="edit" primary />
         </Form>
     )
 }
