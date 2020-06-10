@@ -1,9 +1,10 @@
 import React from 'react'
+import { arrayOf, shape, string, oneOfType, object, func, bool } from 'prop-types'
 import { Icon as SemanticIcon, Menu as SemanticMenu, Table as SemanticTable } from 'semantic-ui-react'
 
 import useTableGenerator from './hooks/useTableGenerator'
 
-const Table = ({ data, columns, shouldPaginate }) => {
+const Table = ({ data, columns, shouldPaginate, onRowClicked }) => {
     const {
         // basic properties
         getTableProps,
@@ -22,9 +23,14 @@ const Table = ({ data, columns, shouldPaginate }) => {
     const tableBodyProps = getTableBodyProps()
 
     return (
-        <SemanticTable {...tableProps}>
+        <SemanticTable {...tableProps} selectable>
             <TableHeader headerGroups={headerGroups} />
-            <TableBody tableBodyProps={tableBodyProps} rows={rows} prepareRow={prepareRow} />
+            <TableBody
+                tableBodyProps={tableBodyProps}
+                rows={rows}
+                prepareRow={prepareRow}
+                onRowClicked={onRowClicked}
+            />
 
             {shouldPaginate && (
                 <SemanticTable.Footer>
@@ -70,7 +76,7 @@ const TableHeader = ({ headerGroups }) => {
     )
 }
 
-const TableBody = ({ tableBodyProps, rows, prepareRow }) => {
+const TableBody = ({ tableBodyProps, rows, prepareRow, onRowClicked }) => {
     return (
         <SemanticTable.Body {...tableBodyProps}>
             {rows.map((row, i) => {
@@ -78,7 +84,7 @@ const TableBody = ({ tableBodyProps, rows, prepareRow }) => {
                 const rowProps = row.getRowProps()
 
                 return (
-                    <SemanticTable.Row {...rowProps}>
+                    <SemanticTable.Row {...rowProps} onClick={() => onRowClicked(row)} style={{ cursor: 'pointer' }}>
                         {row.cells.map(cell => {
                             const cellProps = cell.getCellProps()
 
@@ -89,6 +95,18 @@ const TableBody = ({ tableBodyProps, rows, prepareRow }) => {
             })}
         </SemanticTable.Body>
     )
+}
+
+Table.propTypes = {
+    data: arrayOf(object),
+    columns: arrayOf(
+        shape({
+            Header: string,
+            accessor: oneOfType([string, func]),
+        })
+    ),
+    shouldPaginate: bool,
+    onRowClicked: func,
 }
 
 export default Table
