@@ -4,10 +4,14 @@ import Comment from './Comment'
 
 const CommentRoom = ({ comments = [], postId, onCommentReply, onPostReply }) => {
     return (
-        <div>
-            {comments.map(comment => <Comment key={comment.id} {...comment} onReplySubmitted={onCommentReply} />)}
+        <div class="comment-room">
+            <div className="comment-room__comments">
+                {comments.map(comment => <Comment key={comment.id} {...comment} onReplySubmitted={onCommentReply} />)}
+            </div>
 
-            <CommentReply postId={postId} onReplySubmitted={onPostReply} />
+            <div class={'comment-room__reply-form'}>
+                <CommentReply postId={postId} onReplySubmitted={onPostReply} />
+            </div>
         </div>
     )
 }
