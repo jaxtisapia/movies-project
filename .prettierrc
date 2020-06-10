@@ -1,6 +1,14 @@
 {
-  "trailingComma": "es5",
-  "tabWidth": 4,
-  "semi": false,
-  "singleQuote": true
+    "overrides": [
+        {
+            "files": ["*.jsx"],
+            "options": {
+                "printWidth": 120
+            }
+        }
+    ],
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true
 }
