@@ -1,0 +1,26 @@
+.root {
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding: 20px 15px;
+}
+
+.header_previousPage {
+    cursor: pointer;
+}
+.header_previousPage:hover {
+    color: #7c7a7a;
+}
+
+.header_movieTitle > h1 {
+    text-transform: uppercase;
+    font-weight: 100;
+    font-size: 1.3rem;
+}
+
+.commentRoom {
+}
