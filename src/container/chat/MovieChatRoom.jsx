@@ -15,9 +15,12 @@ const MovieChatRoom = props => {
     const [comments, commentActions, loaders] = useChatsFromFirebase({ movieTitle, movieHash })
 
     function handleCreateComment({ reply }) {
+        const timeCreated = Date.now()
+
         const commentObject = {
             comment: reply,
-            timeCreated: Date.now(),
+            timeCreated,
+            avatarSrc: `https://api.adorable.io/avatars/40/${timeCreated}.png`,
         }
 
         commentActions.createComment(commentObject)
