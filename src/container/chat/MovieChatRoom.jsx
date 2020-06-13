@@ -27,11 +27,11 @@ const MovieChatRoom = props => {
     }
 
     return (
-        <div>
+        <div className={classes.root}>
             <header className={classes.header}>
                 <div className={classes.header_previousPage} onClick={() => history.goBack()}>
                     <Icon name="left arrow" />
-                    Go Back
+                    <span className={classes.header_previousPage__message}>Go Back</span>
                 </div>
 
                 <div className={classes.header_movieTitle}>
@@ -44,6 +44,10 @@ const MovieChatRoom = props => {
             <div className={classes.commentRoom}>
                 <CommentRoom
                     comments={comments}
+                    classes={{
+                        'reply-form': classes['commentRoom__reply-form'],
+                        'comments-container': classes['commentRoom__comments-container'],
+                    }}
                     onCommentReply={console.log}
                     onPostReply={handleCreateComment}
                     postId={movieHash}
