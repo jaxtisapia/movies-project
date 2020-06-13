@@ -1,5 +1,6 @@
 import React from 'react'
 import { Comment as SemanticComment } from 'semantic-ui-react'
+import { format } from 'timeago.js'
 
 import CommentReply from './CommentReply'
 import genericAvatar from '../../assets/images/genericAvatar.jpg'
@@ -16,6 +17,8 @@ const Comment = ({
 }) => {
     const [isReplying, setReplying] = React.useState(false)
 
+    const timeAgoCreated = typeof timeCreated === 'string' ? timeCreated : format(timeCreated)
+
     function handleToggleReplyingStatus() {
         setReplying(!isReplying)
     }
@@ -28,7 +31,7 @@ const Comment = ({
                 <SemanticComment.Content>
                     <SemanticComment.Author as="a">{author}</SemanticComment.Author>
                     <SemanticComment.Metadata>
-                        <div>{timeCreated}</div>
+                        <div>{timeAgoCreated}</div>
                     </SemanticComment.Metadata>
 
                     <SemanticComment.Text>{comment}</SemanticComment.Text>
