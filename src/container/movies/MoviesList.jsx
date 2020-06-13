@@ -2,6 +2,7 @@ import React from 'react'
 import { Dimmer, Loader, Image, Segment, Input } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 
+import classes from "./movies-list.module.css"
 import { Table } from '../../components/table'
 import moviesDataLocal from './movies.json'
 import useMoviesData from './hooks/useMoviesData'
@@ -69,12 +70,12 @@ const MoviesList = () => {
     }
 
     return (
-        <div>
+        <div className={classes.root}>
             <Dimmer active={isMoviesLoading} inverted>
                 <Loader>Loading Movies</Loader>
             </Dimmer>
 
-            <div>
+            <div className={classes.search_container}>
                 <MovieTitleSearchInput onSearchChanged={handleSearchByTitle} loading={isFilterLoading} />
             </div>
 

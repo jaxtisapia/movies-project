@@ -1,0 +1,15 @@
+.root {
+}
+
+.search_container {
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .search_container .input {
+        width: 100%;
+    }
+}
