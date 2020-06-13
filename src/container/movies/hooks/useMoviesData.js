@@ -2,8 +2,6 @@ import React from 'react'
 import moviesDataLocal from '../movies.json'
 import settings from '../../../config/settings'
 
-function getMoviesDataFromServer() {}
-
 function doesQueryMatchFirstName(movie, titleFilter) {
     // todo improve search algorithm
     let movieTitle = movie?.title || ''

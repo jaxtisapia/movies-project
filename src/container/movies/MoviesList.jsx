@@ -1,10 +1,9 @@
 import React from 'react'
-import { Dimmer, Loader, Image, Segment, Input } from 'semantic-ui-react'
+import { Dimmer, Input, Loader } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 
-import classes from "./movies-list.module.css"
+import classes from './movies-list.module.css'
 import { Table } from '../../components/table'
-import moviesDataLocal from './movies.json'
 import useMoviesData from './hooks/useMoviesData'
 import generateGenreFromMovieObject from './utils/generateGenreFromMovieObject'
 
@@ -18,7 +17,7 @@ const columns = [
 
 function debounce(func, ms) {
     let timeout
-    return function() {
+    return function(p) {
         clearTimeout(timeout)
         timeout = setTimeout(() => func.apply(this, arguments), ms)
     }
@@ -28,12 +27,10 @@ function debounce(func, ms) {
 const debouncedSearchQueryTrigger = debounce(searchTrigger => searchTrigger(), 2000)
 
 const MovieTitleSearchInput = ({ onSearchChanged, loading }) => {
-    const [query, setQuery] = React.useState('')
     const [isWaitingToSearchQuery, setWaitingToSearchQuery] = React.useState(false)
 
     function handleSearchTextChange(_, { value }) {
         setWaitingToSearchQuery(true)
-        setQuery(value)
 
         debouncedSearchQueryTrigger(() => {
             setWaitingToSearchQuery(false)

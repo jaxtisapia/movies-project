@@ -1,13 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useParams, useHistory } from 'react-router-dom'
-import { Button, Icon, Card } from 'semantic-ui-react'
+import { useHistory, useParams } from 'react-router-dom'
+import { Icon } from 'semantic-ui-react'
 
 import { CommentRoom } from '../../components/comment-room'
 import useChatsFromFirebase from '../../storage/hooks/useChatsFromFirebase'
 import classes from './movieChatRoom.module.css'
 
-const MovieChatRoom = props => {
+
+const MovieChatRoom = () => {
     const { movieTitle } = useParams()
     const history = useHistory()
 

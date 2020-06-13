@@ -9,7 +9,7 @@ function processCommentsFromFirebase(comments) {
     })
 }
 
-const useChatsFromFirebase = ({ movieTitle, movieHash }) => {
+const useChatsFromFirebase = ({ movieHash }) => {
     const [comments, setComments] = React.useState([])
     const [isCommentsLoading, setCommentsLoading] = React.useState(false)
 
@@ -19,21 +19,24 @@ const useChatsFromFirebase = ({ movieTitle, movieHash }) => {
         commentsCollection.push(comment)
     }
 
-    React.useEffect(() => {
-        setCommentsLoading(true)
+    React.useEffect(
+        () => {
+            setCommentsLoading(true)
 
-        commentsCollection.on('value', snapshot => {
-            const commentsFromFirebase = snapshot.val()
-            const updatedComments = processCommentsFromFirebase(
-                commentsFromFirebase
-            )
+            commentsCollection.on('value', snapshot => {
+                const commentsFromFirebase = snapshot.val()
+                const updatedComments = processCommentsFromFirebase(
+                    commentsFromFirebase
+                )
 
-            setCommentsLoading(false)
-            setComments(updatedComments)
-        })
+                setCommentsLoading(false)
+                setComments(updatedComments)
+            })
 
-        return () => commentsCollection.off()
-    }, [])
+            return () => commentsCollection.off()
+        },
+        []
+    )
 
     return [comments, { createComment }, { isCommentsLoading }]
 }
