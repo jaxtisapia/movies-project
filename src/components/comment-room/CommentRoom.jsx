@@ -5,7 +5,7 @@ import { Dimmer, Loader } from 'semantic-ui-react'
 import useScrollToLastComment from './hooks/useScrollToLastComment'
 
 const CommentRoom = ({ comments = [], postId, onCommentReply, onPostReply, isCommentsLoading, classes = {} }) => {
-    const [scrollToBottom, ScrollReferenceToHere] = useScrollToLastComment(comments)
+    const [, ScrollReferenceToHere] = useScrollToLastComment(comments)
 
     const replyFormClass = classes['reply-form']
     const commentsContainerClass = classes['comments-container']
