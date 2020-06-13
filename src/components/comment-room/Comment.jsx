@@ -29,7 +29,8 @@ const Comment = ({
                 <SemanticComment.Avatar src={avatarSrc || genericAvatar} />
 
                 <SemanticComment.Content>
-                    <SemanticComment.Author as="a">{author}</SemanticComment.Author>
+                    {author && <SemanticComment.Author as="a">{author}</SemanticComment.Author>}
+
                     <SemanticComment.Metadata>
                         <div>{timeAgoCreated}</div>
                     </SemanticComment.Metadata>
