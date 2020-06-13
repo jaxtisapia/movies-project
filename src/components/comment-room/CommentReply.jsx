@@ -8,8 +8,10 @@ const CommentReply = ({ onReplySubmitted, commentId, postId }) => {
         setReply(value)
     }
 
+    // todo use a better chat architecture with event-driven structure
     function handleFormSubmit() {
         onReplySubmitted({ commentId, postId, reply })
+        setReply('')
     }
 
     return (
