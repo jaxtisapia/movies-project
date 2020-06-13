@@ -1,19 +1,42 @@
 import React from 'react'
 import moviesDataLocal from '../movies.json'
+import settings from '../../../config/settings'
+
+function getMoviesDataFromServer() {}
+
+function doesQueryMatchFirstName(movie, titleFilter) {
+    // todo improve search algorithm
+    let movieTitle = movie?.title || ''
+    movieTitle = movieTitle.toLowerCase()
+
+    const queryFilter = titleFilter.toLowerCase()
+
+    return movieTitle.search(queryFilter) >= 0
+}
+
+function fetchMoviesWithCacheStrategy() {
+    // todo implement a localStorage cache to prevent re-fetch from server (instead of fetching from moviesDataLocal)
+    return fetchMoviesFromServer().catch(() => moviesDataLocal)
+}
+
+function fetchMoviesFromServer() {
+    return fetch(settings.moviesApi.url, { mode: 'no-cors' }).then(response =>
+        response.json()
+    )
+}
 
 const useMoviesData = ({ titleFilter }) => {
     const [movies, setMovies] = React.useState([])
     const [filteredMovies, setFilteredMovies] = React.useState([])
-    const [isLoading, setLoading] = React.useState(false)
+    const [isMoviesLoading, setMoviesLoading] = React.useState(false)
     const [isFilterLoading, setFilterLoading] = React.useState(false)
 
     React.useEffect(() => {
-        setLoading(true)
+        setMoviesLoading(true)
 
-        setImmediate(() => {
-            setMovies(moviesDataLocal)
-            setLoading(false)
-        })
+        fetchMoviesWithCacheStrategy()
+            .then(response => setMovies(response))
+            .finally(() => setMoviesLoading(false))
     }, [])
 
     React.useEffect(
@@ -21,28 +44,19 @@ const useMoviesData = ({ titleFilter }) => {
             setFilterLoading(true)
             const isTitleSearchQueryProvided = !!titleFilter
 
-            setImmediate(() => {
-                const updatedFilteredMovies = !isTitleSearchQueryProvided
-                    ? movies
-                    : // todo improve search algorithm
-                      movies.filter(movie => {
-                          const movieTitle = movie?.title || ''
+            const updatedFilteredMovies = !isTitleSearchQueryProvided
+                ? movies
+                : movies.filter(movie =>
+                      doesQueryMatchFirstName(movie, titleFilter)
+                  )
 
-                          return (
-                              movieTitle
-                                  .toLowerCase()
-                                  .search(titleFilter.toLowerCase()) >= 0
-                          )
-                      })
-
-                setFilteredMovies(updatedFilteredMovies)
-                setFilterLoading(false)
-            })
+            setFilteredMovies(updatedFilteredMovies)
+            setFilterLoading(false)
         },
         [titleFilter, movies]
     )
 
-    return [movies, filteredMovies, isLoading, isFilterLoading]
+    return [{ movies, filteredMovies }, { isMoviesLoading, isFilterLoading }]
 }
 
 export default useMoviesData

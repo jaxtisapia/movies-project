@@ -53,7 +53,9 @@ const MovieTitleSearchInput = ({ onSearchChanged, loading }) => {
 const MoviesList = () => {
     const history = useHistory()
     const [titleFilter, setTitleFilter] = React.useState('')
-    const [_, movies, isLoadingMovies, isFilterLoading] = useMoviesData({ titleFilter })
+    const [movieData, loaders] = useMoviesData({ titleFilter })
+    const { isMoviesLoading, isFilterLoading } = loaders || {}
+    const { filteredMovies: movies } = movieData || {}
 
     function handleMovieClicked(movie) {
         const movieTitle = movie?.original?.title
@@ -68,7 +70,7 @@ const MoviesList = () => {
 
     return (
         <div>
-            <Dimmer active={isLoadingMovies} inverted>
+            <Dimmer active={isMoviesLoading} inverted>
                 <Loader>Loading Movies</Loader>
             </Dimmer>
 
