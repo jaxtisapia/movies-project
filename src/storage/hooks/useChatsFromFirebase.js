@@ -35,6 +35,7 @@ const useChatsFromFirebase = ({ movieHash }) => {
 
             return () => commentsCollection.off()
         },
+        // eslint-disable-next-line
         []
     )
 
