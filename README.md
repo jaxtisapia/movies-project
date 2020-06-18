@@ -1,7 +1,5 @@
 # Movies Project Turtle Ninja
 
-This project is a test project for [Turtle Devs](https://www.turtle.dev/)
-
 Overall, this project achieves these
   - A landing filterable table that displays movie results from [movies.json](https://tender-mclean-00a2bd.netlify.app/web/movies.json)
   - Clicking on a movie should takes you to a comment screen
